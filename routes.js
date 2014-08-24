@@ -7,12 +7,6 @@ var app = module.parent.exports.app;
 var express = module.parent.exports.express;
 var api = require("./api");
 
-function writeJSON(res, jsonObj) {
-	// res.set('Content-Type', 'text/json');
-	res.send(JSON.stringify(jsonObj));
-}
-
-
 // serve a home page on the root url
 app.get('/', function(req, res) {
 	res.render("chat.html");

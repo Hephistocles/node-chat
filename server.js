@@ -4,6 +4,7 @@
 var express = require("express");
 var app = express();
 
+// make the "app" and "express" variables visible from outside the module. 
 module.exports.app = app;
 module.exports.express = express;
 
