@@ -1,0 +1,11 @@
+{
+    "dependencies": {
+        "express": "4.x",
+        "ejs":"latest",
+        "request":"latest"
+    },
+    "description": "A place for me to play with node.js",
+    "name": "node-playground",
+    "private": true,
+    "version": "0.0.1"
+}
