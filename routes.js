@@ -2,9 +2,11 @@
 /* global console, __dirname, require, module */
 
 module.exports = {};
-
+console.log("routes.js has been loaded");
 var app = module.parent.exports.app;
 var express = module.parent.exports.express;
+
+// the .js suffix is implicit
 var api = require("./api");
 
 // serve a home page on the root url

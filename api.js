@@ -1,5 +1,6 @@
 /*jshint unused:true, bitwise:true, eqeqeq:true, undef:true, latedef:true, eqnull:true */
 /* global console, __dirname, require, module */
+
 var WORDNIK_API_KEY = "a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
 var WORDNIK_BASE_URL = "http://api.wordnik.com:80/v4/";
 

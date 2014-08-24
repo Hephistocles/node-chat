@@ -4,9 +4,16 @@
 		<title>{{roomname}}</title>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
+		
+		<!-- lib js (should probably use bower) -->
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/angular.js"></script>
+		<script type="text/javascript" src="js/socket.io.js"></script>
+
+		<!-- custom js -->
+		<script type="text/javascript" src="js/classes.js"></script>
+		<script type="text/javascript" src="js/services.js"></script>
 		<script type="text/javascript" src="js/scripts.js"></script>
 	</head>
 	<body>
@@ -32,8 +39,8 @@
 						</div>
 						<div class="panel-footer">
 							<form ng-submit="sendMessage()">
-								<input type="text" ng-model="localName" ng-change="changeName()">
-								<input type="text" ng-model="message" ng-change="typeMessage()">
+								<input type="text" ng-model="localUser.name" ng-change="changeName()">
+								<input type="text" ng-model="currentMessage.text" ng-change="typeMessage()" autofocus>
 								<input type="submit" value="Send">
 							</form>
 						</div>

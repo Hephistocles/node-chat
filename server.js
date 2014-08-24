@@ -1,6 +1,5 @@
 /*jshint unused:true, bitwise:true, eqeqeq:true, undef:true, latedef:true, eqnull:true */
 /* global __dirname, require, module, console, setTimeout */
-
 var express = require("express");
 var app = express();
 
@@ -19,9 +18,21 @@ app.engine("html", require('ejs').renderFile);
 require("./routes");
 
 // any requested page not routed by the above should result in a 404
-app.get('/*',function(req, res) {
+app.get('/*', function(req, res) {
 	res.send("404 Page not found");
 });
 
+
+// create a new http server for socket.io to bind to
+var server = require("http").Server(app);
+var io = require("socket.io")(server);
+
+// our socket code is contained in socket.js, presented as the onconnect handler
+var socket = require("./socket");
+// io.sockets.on('connection', socket);
+
+io.on('connection',  socket);
+
 // listen on port 8000
-app.listen(8000);
+// note that we could call app.listen, but this wouldn't start the socket.io server
+server.listen(80);

@@ -1,10 +1,13 @@
 {
     "dependencies": {
-        "express": "4.x",
+        "express": "latest",
         "ejs":"latest",
-        "request":"latest"
+        "jade":"latest",
+        "request":"latest",
+        "socket.io":"latest"
     },
     "description": "A place for me to play with node.js",
+    "main":"server.js",
     "name": "node-playground",
     "private": true,
     "version": "0.0.1"
