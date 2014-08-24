@@ -21,10 +21,26 @@ function ChatController($scope, nameService) {
 	// bind the messages item
 	$scope.messages = [];
 
+	$scope.localUser = new User("Test");
+	$scope.users = [$scope.localUser];
+
 	// deal with new messages
 	$scope.sendMessage = function() {
-		$scope.messages.push($scope.message);
+		var newMsg = new Message($scope.localUser, $scope.message);
+		$scope.messages.push(newMsg);
 		$scope.message = "";
+		$scope.typeMessage();
+	};
+
+	// deal with name changing
+	$scope.changeName = function() {
+		$scope.localUser.name = $scope.localName;
+		$scope.typeMessage();
+	};
+
+	// deal with name changing
+	$scope.typeMessage = function() {
+		$scope.currentMessage = new Message($scope.localUser, $scope.message);
 	};
 }
 chatTest.controller("chatController", ChatController);
@@ -40,3 +56,14 @@ function NameService($http) {
 	};
 }
 chatTest.factory("nameService", NameService);
+
+// create a User class
+function User(name) {
+	this.name = name;
+}
+
+// create a Message class
+function Message(user, message) {
+	this.text = message;
+	this.user = user;
+}
