@@ -1,18 +1,10 @@
 /*jshint bitwise:true, eqeqeq:true, undef:true, latedef:true, eqnull:true */
 /* global io */
 
-function NameService($http) {
-	return {
-		getRoomName: function() {
-			return $http.get("/api/name");
-		}
-	};
-}
-
 // write a wrapping service simplifying the socket.io api
 function SocketService($rootScope) {
 	var socket = io.connect();
-	
+
 	return {
 		// we will call this function to register event handlers
 		on: function(eventName, callback) {
