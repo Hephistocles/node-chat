@@ -4,12 +4,15 @@
 var Classes = require("./assets/js/classes");
 
 var nextID = 1;
+var serverUser = new Classes.User(0, "ServerBot");
 var connectedUsers = [];
+connectedUsers[0] = serverUser;
 
 // this function is called when a new user connects. Socket is a connection to this user
 module.exports = function(socket) {
 	
 	var user = new Classes.User(nextID, "Guest " + nextID);
+	connectedUsers[nextID] = user;
 	nextID++;
 
 	socket.emit('init', {
@@ -17,7 +20,19 @@ module.exports = function(socket) {
 		users: connectedUsers
 	});
 
-	socket.on('message', function(data) {
+	socket.broadcast.emit('newuser', {user:user});
+	socket.broadcast.emit('message', {user:user, text:"I have joined the room."});
+
+	socket.on('namechange', function(data) {
+		connectedUsers[data.id].name = data.name;
+		socket.broadcast.emit('namechange', {id:data.id, name:data.name});
+	});
+
+	socket.on('typemessage', function(data) {
 		console.log("received: " + JSON.stringify(data));
+	});
+
+	socket.on('message', function(data) {
+		socket.broadcast.emit('message', data.message);
 	});
 };

@@ -34,7 +34,7 @@
 						<div class="panel-body">
 							<ul>
 								<li ng-repeat="message in messages">{{message.user.name}}: {{message.text}}</li>
-								<li ng-model="currentMessage">{{currentMessage.user.name}}: {{currentMessage.text}}</li>
+								<li class="in-progress" ng-model="currentMessage">{{currentMessage.user.name}}: {{currentMessage.text}}</li>
 							</ul>
 						</div>
 						<div class="panel-footer">

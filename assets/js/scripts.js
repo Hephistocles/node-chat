@@ -28,15 +28,37 @@ function ChatController($scope, nameService, socketService) {
 
 	// deal with name changing
 	$scope.typeMessage = function() {
-		// $scope.currentMessage = new Classes.Message($scope.localUser, $scope.message);
+
+		socketService.emit('typemessage', {message: $scope.currentMessage});
+	};
+	// deal with name changing
+	$scope.changeName = function() {
+		socketService.emit('namechange', {id:$scope.localUser.id, name:$scope.localUser.name});
 	};
 
 	// receive assigned user ID, and current list of users
 	socketService.on('init', function(data) {
 		console.log(data);
-		$scope.localUser = data.user;
 		$scope.users = data.users;
+		$scope.localUser = $scope.users[data.user.id];
 		$scope.currentMessage = new Classes.Message($scope.localUser, "");
+	});
+
+	socketService.on('newuser', function(data) {
+		$scope.users[data.user.id] = data.user;
+	});
+	
+	// receive assigned user ID, and current list of users
+	socketService.on('message', function(data) {
+
+		// replace the user with our local version (so we can update names)
+		data.user = $scope.users[data.user.id];
+		$scope.messages.push(data);
+		console.log(data);
+	});
+
+	socketService.on('namechange', function(data) {
+		$scope.users[data.id].name = data.name;
 	});
 	
 	// initialise properties	
