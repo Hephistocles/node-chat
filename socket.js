@@ -10,10 +10,11 @@ connectedUsers[0] = serverUser;
 
 // this function is called when a new user connects. Socket is a connection to this user
 module.exports = function(socket) {
-	
-	var user = new Classes.User(nextID, "Guest " + nextID);
-	connectedUsers[nextID] = user;
-	nextID++;
+	var localID = nextID++;
+	var user = new Classes.User(localID, "Guest " + localID);
+	connectedUsers[localID] = user;
+	// socket.set(nextID);
+	// nextID++;
 
 	socket.emit('init', {
 		user: user,
@@ -24,8 +25,8 @@ module.exports = function(socket) {
 	socket.broadcast.emit('message', {user:user, text:"I have joined the room."});
 
 	socket.on('namechange', function(data) {
-		connectedUsers[data.id].name = data.name;
-		socket.broadcast.emit('namechange', {id:data.id, name:data.name});
+		connectedUsers[localID].name = data.name;
+		socket.broadcast.emit('namechange', {id:localID, name:data.name});
 	});
 
 	socket.on('typemessage', function(data) {
@@ -35,5 +36,11 @@ module.exports = function(socket) {
 
 	socket.on('message', function(data) {
 		socket.broadcast.emit('message', data.message);
+	});
+
+	socket.on('disconnect', function() {
+		socket.broadcast.emit('message', new Classes.Message(connectedUsers[localID], "I have disconnected."));
+		delete connectedUsers[localID];
+		socket.broadcast.emit('disconnection', {id:localID});
 	});
 };

@@ -20,6 +20,8 @@ function ChatController($scope, nameService, socketService) {
 	// define event handlers first
 	// deal with new messages
 	$scope.sendMessage = function() {
+		if ($scope.currentMessage.text.length<1)
+			return;
 		var newMsg = $scope.currentMessage.clone();
 		socketService.emit('message', {message:newMsg});
 		$scope.messages.push(newMsg);
@@ -34,7 +36,7 @@ function ChatController($scope, nameService, socketService) {
 	};
 	// deal with name changing
 	$scope.changeName = function() {
-		socketService.emit('namechange', {id:$scope.localUser.id, name:$scope.localUser.name});
+		socketService.emit('namechange', {name:$scope.localUser.name});
 	};
 
 	// receive assigned user ID, and current list of users
@@ -73,6 +75,11 @@ function ChatController($scope, nameService, socketService) {
 
 	socketService.on('namechange', function(data) {
 		$scope.users[data.id].name = data.name;
+	});
+	
+	socketService.on('disconnection', function(data) {
+		// don't delete the user because otherwise all their old messages will be orphaned
+		// delete $scope.users[data.id];
 	});
 	
 	// initialise properties	

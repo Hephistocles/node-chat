@@ -32,11 +32,11 @@
 						</div>
 						<div class="panel-body">
 							<ul>
-								<li ng-repeat="message in messages">{{message.user.name}}: {{message.text}}</li>
+								<li ng-repeat="message in messages"><strong>{{message.user.name}}</strong>: {{message.text}}</li>
 							</ul>
 							<ul class="in-progress">
 								<li ng-repeat="message in currentMessages track by $index" ng-if="message.text.length>0">
-									{{message.user.name}}: {{message.text}}
+									<strong>{{message.user.name}}</strong>: {{message.text}}
 								</li>
 							</ul>
 						</div>
