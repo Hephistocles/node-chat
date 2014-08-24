@@ -30,6 +30,7 @@ module.exports = function(socket) {
 
 	socket.on('typemessage', function(data) {
 		console.log("received: " + JSON.stringify(data));
+		socket.broadcast.emit('typemessage', data.message);
 	});
 
 	socket.on('message', function(data) {

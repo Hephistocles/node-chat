@@ -24,6 +24,7 @@ function ChatController($scope, nameService, socketService) {
 		socketService.emit('message', {message:newMsg});
 		$scope.messages.push(newMsg);
 		$scope.currentMessage.text = "";
+		$scope.typeMessage();
 	};
 
 	// deal with name changing
@@ -57,6 +58,19 @@ function ChatController($scope, nameService, socketService) {
 		console.log(data);
 	});
 
+	// receive assigned user ID, and current list of users
+	socketService.on('typemessage', function(data) {
+
+		// replace the user with our local version (so we can update names)
+		data.user = $scope.users[data.user.id];
+		console.log(data);
+			$scope.currentMessages[data.user.id] = data;
+		// if (data.text.length < 1 && $scope.currentMessages[data.user.id]) {
+		// 	// delete $scope.currentMessages[data.user.id];
+		// } else {
+		// }
+	});
+
 	socketService.on('namechange', function(data) {
 		$scope.users[data.id].name = data.name;
 	});
@@ -65,6 +79,7 @@ function ChatController($scope, nameService, socketService) {
 	// deal with room name
 	$scope.roomname = "";
 	$scope.messages = [];
+	$scope.currentMessages = [];
 	// $scope.localName = "New User";
 	// $scope.localUser = new Classes.User($scope.localName);
 	$scope.users = [];

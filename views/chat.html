@@ -10,7 +10,6 @@
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/angular.js"></script>
 		<script type="text/javascript" src="js/socket.io.js"></script>
-
 		<!-- custom js -->
 		<script type="text/javascript" src="js/classes.js"></script>
 		<script type="text/javascript" src="js/services.js"></script>
@@ -34,7 +33,11 @@
 						<div class="panel-body">
 							<ul>
 								<li ng-repeat="message in messages">{{message.user.name}}: {{message.text}}</li>
-								<li class="in-progress" ng-model="currentMessage">{{currentMessage.user.name}}: {{currentMessage.text}}</li>
+							</ul>
+							<ul class="in-progress">
+								<li ng-repeat="message in currentMessages track by $index" ng-if="message.text.length>0">
+									{{message.user.name}}: {{message.text}}
+								</li>
 							</ul>
 						</div>
 						<div class="panel-footer">
