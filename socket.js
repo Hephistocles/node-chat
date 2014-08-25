@@ -55,6 +55,7 @@ module.exports = function(socket) {
 	// like for the initial connection, notify everyone else and update our representation
 	socket.on('disconnect', function() {
 		socket.broadcast.emit('message', new Classes.Message(connectedUsers[localID], "I have disconnected."));
+		socket.broadcast.emit('disconnection', {id:localID});
 		delete connectedUsers[localID];
 	});
 };
