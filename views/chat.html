@@ -20,7 +20,7 @@
 		<div class="panel panel-info">
 			<div class="panel-heading">
 				<h3 class="panel-title">
-					Live Chat
+				Live Chat
 				</h3>
 			</div>
 			<div class="panel-body">
@@ -36,18 +36,18 @@
 						<td>{{message.user.name}}</td>
 						<td>{{message.text}}</td>
 					</tr>
-					<tr>
-						<form ng-submit="sendMessage()">
+					<form ng-submit="sendMessage()">
+						<tr>
 							<td>
 								<input id="name_input" type="text" ng-model="localUser.name" ng-change="changeName()">
 							</td>
 							<td>
-								<input id="message_input" type="text" ng-model="currentMessage.text" ng-change="typeMessage()" autofocus>
+								<input id="message_input" type="text" placeholder="Your message" ng-model="currentMessage.text" ng-change="typeMessage()" autofocus>
 								<input type="submit" value="Send">
 								
 							</td>
-						</form>
-					</tr>
+						</tr>
+					</form>
 					</tfoot>
 				</table>
 			</div>

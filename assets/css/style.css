@@ -1,3 +1,35 @@
 .in-progress {
-	font-style:italic;
+	font-weight:bold;
+}
+
+input[type=text] {
+    border: none;  
+    border-bottom: 2px dashed #777;
+}
+td:first-child, td:first-child input {
+	font-weight: bold;
+}
+td {
+	width:85%;
+}
+td:first-child {
+	width:15%;
+	padding-right:30px;
+}
+
+#message_input {
+	width:90%;
+}
+input[type=submit] {
+	width:9%;
+	float:right;
+}
+
+input:focus {
+	outline: none;
+	border-color:#000;
+}
+
+tfoot {
+font-style: italic;
 }

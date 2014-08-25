@@ -5,7 +5,6 @@
 // a module is sort of like a namespace 
 var chatTest = angular.module('liveChat', []);
 
-
 // create a service to wrap around socket.io
 chatTest.factory("socketService", SocketService);
 
