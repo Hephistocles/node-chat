@@ -1,49 +1,55 @@
 <!DOCTYPE html>
-<html ng-app="chatTest" ng-controller="chatController">
+<html>
 	<head>
 		<title>Live Chat</title>
-		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="libcss/bootstrap.min.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
 		
-		<!-- lib js (should probably use bower) -->
-		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/angular.js"></script>
-		<script type="text/javascript" src="js/socket.io.js"></script>
+		<!-- lib js (NB should probably use bower or something) -->
+		<script type="text/javascript" src="libjs/jquery.min.js"></script>
+		<script type="text/javascript" src="libjs/bootstrap.min.js"></script>
+		<script type="text/javascript" src="libjs/angular.js"></script>
+		<script type="text/javascript" src="libjs/socket.io.js"></script>
 		<!-- custom js -->
 		<script type="text/javascript" src="js/classes.js"></script>
 		<script type="text/javascript" src="js/services.js"></script>
 		<script type="text/javascript" src="js/scripts.js"></script>
 	</head>
-	<body>
-		<div class="container">
-			<div class="row clearfix">
-				<div class="col-md-12 column">
-					<div class="panel panel-info">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-							Live Chat
-							</h3>
-						</div>
-						<div class="panel-body">
-							<ul>
-								<li ng-repeat="message in messages"><strong>{{message.user.name}}</strong>: {{message.text}}</li>
-							</ul>
-							<ul class="in-progress">
-								<li ng-repeat="message in currentMessages track by $index" ng-if="message.text.length>0">
-									<strong>{{message.user.name}}</strong>: {{message.text}}
-								</li>
-							</ul>
-						</div>
-						<div class="panel-footer">
-							<form ng-submit="sendMessage()">
-								<input type="text" ng-model="localUser.name" ng-change="changeName()">
-								<input type="text" ng-model="currentMessage.text" ng-change="typeMessage()" autofocus>
+	<!-- tell angular to be active here using our registered chatController in the liveChat namespace -->
+	<body ng-app="liveChat" ng-controller="chatController">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					Live Chat
+				</h3>
+			</div>
+			<div class="panel-body">
+				<table>
+					<tbody>
+						<tr ng-repeat="message in messages">
+							<td>{{message.user.name}}</td>
+							<td>{{message.text}}</td>
+						</tr>
+					</tbody>
+					<tfoot>
+					<tr ng-repeat="message in currentMessages track by $index" ng-if="message.text.length>0">
+						<td>{{message.user.name}}</td>
+						<td>{{message.text}}</td>
+					</tr>
+					<tr>
+						<form ng-submit="sendMessage()">
+							<td>
+								<input id="name_input" type="text" ng-model="localUser.name" ng-change="changeName()">
+							</td>
+							<td>
+								<input id="message_input" type="text" ng-model="currentMessage.text" ng-change="typeMessage()" autofocus>
 								<input type="submit" value="Send">
-							</form>
-						</div>
-					</div>
-				</div>
+								
+							</td>
+						</form>
+					</tr>
+					</tfoot>
+				</table>
 			</div>
 		</div>
 	</body>

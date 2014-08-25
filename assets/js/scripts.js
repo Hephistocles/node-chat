@@ -1,14 +1,12 @@
 /*jshint unused:true, bitwise:true, eqeqeq:true, undef:true, latedef:true, eqnull:true */
-/* global angular, console, alert, Classes, NameService, SocketService */
+/* global angular, console, Classes, SocketService */
 
 // create a module called chatTest with no dependent modules
 // a module is sort of like a namespace 
-var chatTest = angular.module('chatTest', []);
+var chatTest = angular.module('liveChat', []);
 
 
-// create services
-// a service tends to be stateless and just have functions
-// services provide back-end logic and transformations for data
+// create a service to wrap around socket.io
 chatTest.factory("socketService", SocketService);
 
 // create a controller within the chatTest module
