@@ -30,6 +30,6 @@ var io = require("socket.io")(server);
 var socket = require("./socket");
 io.on('connection', socket);
 
-// listen on port 8000
+// listen on port 80
 // note that we could call app.listen, but this wouldn't start the socket.io server
 server.listen(80);
